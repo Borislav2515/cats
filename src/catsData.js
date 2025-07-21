@@ -77,7 +77,7 @@ const cats = [
       "breed": "Сибирская",
       "category": "кошки/коты",
       "description": "Любит сидеть на окне и смотреть на улицу.",
-      "image": "https://images.unsplash.com/photo-1618826411644-4152af83e48f?auto=format&fit=crop&w=400&q=80",
+      "image": "https://i.ytimg.com/vi/RGY68XE1uoo/hqdefault.jpg",
       "images": [
         "https://images.unsplash.com/photo-1618826411644-4152af83e48f?auto=format&fit=crop&w=400&q=80",
         "https://images.unsplash.com/photo-1618826411644-4152af83e48f?auto=format&fit=crop&w=400&q=80",
@@ -230,7 +230,7 @@ const cats = [
       "breed": "Шотландская вислоухая",
       "category": "кошки/коты",
       "description": "Очень спокойная и любит спать.",
-      "image": "https://images.unsplash.com/photo-1583337130417-3346a1b2a5c0?auto=format&fit=crop&w=400&q=80",
+      "image": "https://ext.derpicdn.net/xZa9IRhJ6fCyWAixJLm7Ga797Mc/aHR0cDovLzMuYnAuYmxvZ3Nwb3QuY29tLy1ublZ6OUY5YkNVcy9ValRmYjVzZzdISS9BQUFBQUFBQVFpYy9Pb05iLVBwNXBuSS9zNjQwL2ZvdG9zLWRlLWdhdGl0by1jb24tb2pvcy1henVsZXMuanBn",
       "images": [
         "https://images.unsplash.com/photo-1583337130417-3346a1b2a5c0?auto=format&fit=crop&w=400&q=80",
         "https://images.unsplash.com/photo-1583337130417-3346a1b2a5c0?auto=format&fit=crop&w=400&q=80",
