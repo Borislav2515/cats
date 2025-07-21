@@ -1,0 +1,75 @@
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 340px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  padding: 24px 20px 20px 20px;
+}
+.feedback-form h3 {
+  margin: 0 0 8px 0;
+  color: #ff7a59;
+  font-size: 1.2rem;
+  text-align: center;
+}
+.feedback-form input,
+.feedback-form textarea {
+  border: 1.5px solid #eee;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+  resize: none;
+}
+.feedback-form input:focus,
+.feedback-form textarea:focus {
+  border: 1.5px solid #ff7a59;
+}
+.feedback-form button {
+  background: #ff7a59;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 0;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.feedback-form button:hover {
+  background: #ff4d1a;
+}
+.feedback__thanks {
+  text-align: center;
+  color: #ff7a59;
+  font-size: 1.2rem;
+  padding: 24px 0;
+}
+.feedback-form__select {
+  border: 1.5px solid #eee;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+  background: #fff;
+  color: #222;
+  margin-bottom: 2px;
+}
+.feedback-form__select:focus {
+  border: 1.5px solid #ff7a59;
+}
+.theme-dark .feedback-form__select {
+  background: #2d2d38;
+  color: #f7f7f9;
+  border: 1.5px solid #39394a;
+}
+@media (max-width: 500px) {
+  .feedback-form {
+    padding: 12px 4px 10px 4px;
+    max-width: 98vw;
+  }
+}
