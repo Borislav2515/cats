@@ -1,4 +1,6 @@
 .cat-card {
+  display: flex;
+  justify-content: space-between;
   background: var(--bg-card);
   border-radius: 20px;
   box-shadow: 0 4px 24px rgba(34,34,34,0.10);
@@ -66,9 +68,10 @@
   margin: 0;
   box-shadow: none;
   display: block;
+  transition: opacity 0.3s ease;
 }
 .cat-card__info {
-  width: auto;
+  width: 100%;
   padding: 18px 18px 14px 18px;
   display: flex;
   flex-direction: column;
@@ -94,6 +97,31 @@
   color: #444;
   margin-bottom: 8px;
   text-align: start;
+  max-height: 60px;
+  overflow-y: auto;
+  line-height: 1.4;
+  padding-right: 4px;
+  /* Стилизация скроллбара */
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+/* Стилизация скроллбара для WebKit браузеров */
+.cat-card__desc::-webkit-scrollbar {
+  width: 4px;
+}
+
+.cat-card__desc::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cat-card__desc::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 2px;
+}
+
+.cat-card__desc::-webkit-scrollbar-thumb:hover {
+  background-color: #999;
 }
 .cat-card__meta {
   font-size: 0.92rem;
@@ -135,5 +163,112 @@
   margin: 8px 0;
 }
 .theme-dark .cat-card__desc {
+  color: var(--text-secondary);
+}
+
+.theme-dark .cat-card__desc::-webkit-scrollbar-thumb {
+  background-color: #666;
+}
+
+.theme-dark .cat-card__desc::-webkit-scrollbar-thumb:hover {
+  background-color: #888;
+}
+.cat-card__badges {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+.cat-card__badge {
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(34,34,34,0.10);
+  letter-spacing: 0.5px;
+  text-transform: lowercase;
+  margin-bottom: 2px;
+  opacity: 0.93;
+}
+.cat-card__gallery {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0;
+  position: relative;
+  cursor: pointer;
+}
+.cat-card__gallery-dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0;
+}
+.cat-card__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  padding: 0;
+  flex-shrink: 0;
+}
+.cat-card__dot.active {
+  background-color: #ff7a59;
+  transform: scale(1.2);
+}
+.cat-card__dot:hover {
+  background-color: #ff7a59;
+  transform: scale(1.1);
+}
+.cat-card__icon {
+  font-size: 1.1em;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+.theme-dark .cat-card__badge {
+  color: #fff;
+  opacity: 1;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.18);
+}
+.theme-dark .cat-card__dot {
+  background-color: #666;
+}
+.theme-dark .cat-card__dot.active,
+.theme-dark .cat-card__dot:hover {
+  background-color: var(--accent);
+}
+.theme-dark .cat-card {
+  background: var(--bg-card);
   color: var(--text);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.38);
+}
+.theme-dark .cat-card__name {
+  color: var(--accent);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .cat-card__dot {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .cat-card__gallery-dots {
+    gap: 10px;
+    margin-top: 16px;
+  }
+  
+  .cat-card__desc {
+    max-height: 50px;
+    font-size: 0.95rem;
+  }
 }

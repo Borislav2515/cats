@@ -9,6 +9,9 @@ import catsData from './catsData';
 import { ReactComponent as HeartIcon } from './icons/heart.svg';
 import { ReactComponent as CallIcon } from './icons/call.svg';
 import { ReactComponent as ThemeIcon } from './icons/theme.svg';
+import { ReactComponent as PawIcon } from './logo.svg'; // Используем логотип как иконку лапки для FAB
+import pawFavicon from './assets/paw-favicon.svg';
+import FAQ from './components/FAQ';
 
 const categories = [
   'кошки/коты',
@@ -27,14 +30,15 @@ function App() {
     const fav = localStorage.getItem('cat-favorites');
     return fav ? JSON.parse(fav) : [];
   });
-  const [showFavorites, setShowFavorites] = useState(false);
+
   const [showDonateModal, setShowDonateModal] = useState(false);
   const [page, setPage] = useState('main');
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   const [loading, setLoading] = useState(true);
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(true);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [adoptCat, setAdoptCat] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
 
   // Сохранение избранного в localStorage
   useEffect(() => {
@@ -51,6 +55,17 @@ function App() {
     const timer = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timer);
   }, [selectedCategory, selectedAges, selectedGenders, selectedColors, selectedBreeds]);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 900);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Устанавливаем CSS-переменную для лапки
+  React.useEffect(() => {
+    document.documentElement.style.setProperty('--paw-bg', `url(${pawFavicon}) no-repeat center/contain`);
+  }, []);
 
   // Фильтрация
   const filteredCats = catsData.filter(cat => {
@@ -102,37 +117,56 @@ function App() {
         {page === 'main' ? (
           <>
             {/* Кнопка для открытия фильтров на мобильных */}
-            <button
-              className="filters-mobile-btn"
-              onClick={() => setFiltersOpen(true)}
-            >
-              Фильтры
-            </button>
-            {/* Сайдбар-фильтры: на десктопе всегда, на мобилке — как модалка */}
-            <aside
-              className={
-                "shelter-sidebar" +
-                (filtersOpen ? " filters-mobile-open" : "")
-              }
-            >
-              <Filters
-                selectedAges={selectedAges}
-                setAges={handleAge}
-                selectedGenders={selectedGenders}
-                setGenders={handleGender}
-                selectedColors={selectedColors}
-                setColors={handleColor}
-                selectedBreeds={selectedBreeds}
-                setBreeds={handleBreed}
-              />
-              {/* Кнопка закрытия фильтров на мобилке */}
+            {isMobile && (
               <button
-                className="filters-mobile-close"
-                onClick={() => setFiltersOpen(false)}
+                className="filters-mobile-btn"
+                onClick={() => setFiltersOpen(true)}
               >
-                Закрыть
+                Фильтры
               </button>
-            </aside>
+            )}
+            {/* Bottom sheet фильтры на мобильных */}
+            {isMobile && filtersOpen && (
+              <div className="filters-bottom-sheet">
+                <Filters
+                  selectedAges={selectedAges}
+                  setAges={handleAge}
+                  selectedGenders={selectedGenders}
+                  setGenders={handleGender}
+                  selectedColors={selectedColors}
+                  setColors={handleColor}
+                  selectedBreeds={selectedBreeds}
+                  setBreeds={handleBreed}
+                />
+                <button
+                  className="filters-bottom-sheet__close"
+                  onClick={() => setFiltersOpen(false)}
+                >
+                  Закрыть
+                </button>
+              </div>
+            )}
+            {/* Сайдбар-фильтры на десктопе */}
+            {!isMobile && (
+              <aside className={"shelter-sidebar" + (filtersOpen ? " filters-mobile-open" : "") }>
+                <Filters
+                  selectedAges={selectedAges}
+                  setAges={handleAge}
+                  selectedGenders={selectedGenders}
+                  setGenders={handleGender}
+                  selectedColors={selectedColors}
+                  setColors={handleColor}
+                  selectedBreeds={selectedBreeds}
+                  setBreeds={handleBreed}
+                />
+                <button
+                  className="filters-mobile-close"
+                  onClick={() => setFiltersOpen(false)}
+                >
+                  Закрыть
+                </button>
+              </aside>
+            )}
             <section className="shelter-content">
               <div className="categories-block">
                 {categories.map(cat => (
@@ -156,11 +190,17 @@ function App() {
                 onCatClick={setModalCat}
                 favorites={favorites}
                 onFavoriteToggle={handleFavoriteToggle}
-                showFavorites={showFavorites}
                 loading={loading}
               />
             </section>
           </>
+        ) : page === 'faq' ? (
+          <section className="shelter-content" style={{width:'100%'}}>
+            <button className="back-btn" onClick={()=>setPage('main')} style={{marginBottom:24}}>
+              ← Назад
+            </button>
+            <FAQ />
+          </section>
         ) : (
           <section className="shelter-content" style={{width:'100%'}}>
             <button className="back-btn" onClick={()=>setPage('main')} style={{marginBottom:24}}>
@@ -172,7 +212,6 @@ function App() {
               onCatClick={setModalCat}
               favorites={favorites}
               onFavoriteToggle={handleFavoriteToggle}
-              showFavorites={false}
             />
           </section>
         )}
@@ -185,6 +224,14 @@ function App() {
             </div>
           </div>
         )}
+        {/* Плавающая кнопка доната/обратной связи */}
+        <button
+          className="fab-donate"
+          title="Поддержать приют или связаться"
+          onClick={() => setShowDonateModal(true)}
+        >
+          <PawIcon width={32} height={32} style={{marginRight:0}} />
+        </button>
         <DonateModal open={showDonateModal} onClose={() => setShowDonateModal(false)} />
       </main>
       <footer className="shelter-footer">

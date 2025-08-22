@@ -16,7 +16,7 @@ function SkeletonCard() {
   );
 }
 
-function CatList({ cats, onCatClick, favorites = [], onFavoriteToggle, showFavorites = false, loading = false }) {
+function CatList({ cats, onCatClick, favorites = [], onFavoriteToggle, loading = false }) {
   const [visibleCount, setVisibleCount] = useState(8);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
 

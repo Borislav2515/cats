@@ -65,9 +65,38 @@ body, html, #root, .shelter-app {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
   background: var(--bg);
   color: var(--text);
+}
+
+/* Декоративные лапки в header и footer */
+/* .shelter-header::after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: 32px;
+  top: 12px;
+  width: 38px;
+  height: 38px;
+  background: var(--paw-bg);
+  opacity: 0.18;
+  pointer-events: none;
+}
+.shelter-footer::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 32px;
+  bottom: 18px;
+  width: 38px;
+  height: 38px;
+  background: var(--paw-bg);
+  opacity: 0.18;
+  pointer-events: none;
+} */
+.shelter-header, .shelter-footer {
+  position: relative;
 }
 .shelter-header {
   background: var(--bg-card);
@@ -413,5 +442,97 @@ body, html, #root, .shelter-app {
   .filters-mobile-close:active,
   .filters-mobile-close:hover {
     background: var(--accent-hover);
+  }
+}
+
+/* Bottom sheet для фильтров на мобильных */
+@media (max-width: 900px) {
+  .filters-bottom-sheet {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    background: var(--bg-card);
+    box-shadow: 0 -4px 32px rgba(0,0,0,0.18);
+    border-radius: 18px 18px 0 0;
+    z-index: 3000;
+    padding: 24px 12px 18px 12px;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: bottomSheetIn 0.33s cubic-bezier(.33,1.02,.57,.99);
+    transition: transform 0.25s, opacity 0.25s;
+  }
+  .filters-bottom-sheet__close {
+    display: block;
+    margin: 0 auto 18px auto;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 32px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: background 0.2s;
+  }
+  .filters-bottom-sheet__close:active,
+  .filters-bottom-sheet__close:hover {
+    background: var(--accent-hover);
+  }
+}
+@keyframes bottomSheetIn {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Плавающая кнопка доната/обратной связи */
+.fab-donate {
+  position: fixed;
+  right: 22px;
+  bottom: 28px;
+  z-index: 4000;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 62px;
+  height: 62px;
+  box-shadow: 0 4px 18px rgba(255,122,89,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.18s;
+}
+.fab-donate:hover {
+  background: var(--accent-hover);
+  transform: scale(1.08);
+}
+@media (max-width: 600px) {
+  .fab-donate {
+    width: 48px;
+    height: 48px;
+    font-size: 1.4rem;
+    right: 10px;
+    bottom: 14px;
+  }
+}
+
+.fav-icon-btn > svg,
+.theme-toggle > svg,
+.donate-icon-btn > svg {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  min-height: 38px;
+}
+@media (max-width: 600px) {
+  .fav-icon-btn > svg,
+  .theme-toggle > svg,
+  .donate-icon-btn > svg {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
   }
 }
